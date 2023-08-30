@@ -1,4 +1,4 @@
 storage = [{
-    "body": "texttexttext", "author": "somebody"
+    "_id": 1, "body": "texttexttext", "author": "somebody"
 }]
 
