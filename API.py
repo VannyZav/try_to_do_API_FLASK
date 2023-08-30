@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from flask.json.provider import DefaultJSONProvider
+
 from storage import storage
 from twit import Twit
+
 
 app = Flask(__name__)
 
@@ -18,17 +20,17 @@ class CustomJSONProvider(DefaultJSONProvider):
 app.json = CustomJSONProvider(app)
 
 
-@app.route("/input_data/", methods=["POST"])
+@app.route("/", methods=["POST"])
 def create():
-    data = request.json
+    data = request.get_json()
     twit = Twit(data["body"], data["author"])
     storage.append(twit)
     return jsonify(twit), 201
 
 
-@app.route("/list_of_data/", methods=["GET"])
+@app.route("/", methods=["GET"])
 def read():
-    return jsonify(storage), 200
+    return jsonify(storage)
 
 
 if __name__ == "__main__":
