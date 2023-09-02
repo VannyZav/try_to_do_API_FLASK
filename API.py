@@ -23,8 +23,10 @@ app.json = CustomJSONProvider(app)
 def create():
     data = request.get_json()
     twit = Twit(data["id"], data["body"], data["author"])
-    storage.append(twit)
-    return jsonify(twit), 201
+    for dict_ in storage:
+        if twit not in dict_:
+            storage.append(twit)
+            return jsonify(twit), 201
 
 
 @app.route("/", methods=["GET"])
@@ -34,9 +36,22 @@ def read():
 
 @app.route("/<_id>", methods=["PUT"])
 def update(_id):
-    for dicts in storage:
-        if dicts["id"] == _id:
-            return dicts
+    data = request.get_json()
+    twit = Twit(_id, data["body"], data["author"])
+    for dict_ in storage:
+        if not str(_id) in dict_["id"]:
+            return "haven't such id"
+        elif dict_["id"] == _id:
+            storage[storage.index(dict_)] = twit
+            dict_["id"] = _id
+            return jsonify(storage)
+
+@app.route("/<_id>", methods=["DELETE"])
+def delete(_id):
+    for dict_ in storage:
+        if _id == dict_['id']:
+            del storage[storage.index(dict_)]
+            return '200'
 
 
 if __name__ == "__main__":
