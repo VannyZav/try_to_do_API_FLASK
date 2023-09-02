@@ -4,7 +4,6 @@ from flask.json.provider import DefaultJSONProvider
 from storage import storage
 from twit import Twit
 
-
 app = Flask(__name__)
 
 
@@ -31,6 +30,13 @@ def create():
 @app.route("/", methods=["GET"])
 def read():
     return jsonify(storage)
+
+
+@app.route("/<_id>", methods=["PUT"])
+def update(_id):
+    for dicts in storage:
+        if dicts["id"] == _id:
+            return dicts
 
 
 if __name__ == "__main__":

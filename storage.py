@@ -1,5 +1,5 @@
 storage = [{
-    "id": '1',
+    "id": "1",
     "body": "texttexttext",
     "author": "somebody"
 }]
