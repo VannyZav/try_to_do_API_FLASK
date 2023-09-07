@@ -19,18 +19,35 @@ class CustomJSONProvider(DefaultJSONProvider):
 app.json = CustomJSONProvider(app)
 
 
-@app.route("/", methods=["POST"])
+@app.route("/create/", methods=["POST"])
 def create():
     data = request.get_json()
-    twit = Twit(data["id"], data["body"], data["author"])
-    for dict_ in storage:
-        if twit not in dict_:
-            storage.append(twit)
-            return jsonify(twit), 201
+    id = request.args.get("id")
+    req_twit = Twit(data["id"], data["body"], data["author"])
+    strg_twit = next((twit for twit in storage if twit["id"] == id), None)
+    if strg_twit:
+        return f'twit with such id already created'
+
+    storage.append(req_twit)
+    return jsonify(req_twit), 201
+    # id = request.args.get("id")
+    # data = request.get_json()
+    # twit = Twit(data["id"], data["body"], data["author"])
+    # storage.append(twit)
+    # return jsonify(twit), 201
 
 
-@app.route("/", methods=["GET"])
-def read():
+@app.route("/twits/<_id>/")
+def get_twit(_id):
+    twit = next((twit for twit in storage if twit["id"] == str(_id)), None)
+    if twit:
+        return jsonify(twit)
+    else:
+        return f"Twit with id {_id} not found"
+
+
+@app.route("/twits/")
+def get_twits():
     return jsonify(storage)
 
 
@@ -45,6 +62,7 @@ def update(_id):
             storage[storage.index(dict_)] = twit
             dict_["id"] = _id
             return jsonify(storage)
+
 
 @app.route("/<_id>", methods=["DELETE"])
 def delete(_id):
