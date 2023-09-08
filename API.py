@@ -36,7 +36,7 @@ def get_twits():
     return jsonify(storage)
 
 
-@app.route("/update/<int:_id>", methods=["PUT"])
+@app.route("/update/<int:_id>/", methods=["PUT"])
 def update(_id):
     data = request.get_json()
     for twit in storage:
@@ -47,7 +47,7 @@ def update(_id):
     return jsonify({"status": f"twit with id {_id} not found"})
 
 
-@app.route("/delete/<int:_id>", methods=["DELETE"])
+@app.route("/delete/<int:_id>/", methods=["DELETE"])
 def delete(_id):
     for twit in storage:
         if twit["id"] == _id:
