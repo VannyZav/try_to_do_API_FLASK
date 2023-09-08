@@ -20,7 +20,7 @@ def create():
             "author": new_twit["author"]
     }
     storage.append(twit)
-    return jsonify(twit), 201
+    return jsonify(twit)
 
 
 @app.route("/read/<int:_id>/")
