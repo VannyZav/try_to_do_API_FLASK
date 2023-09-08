@@ -33,8 +33,8 @@ http://127.0.0.1:5000/read/<int:id>/
 
 update twit
 method PUT:
-http://127.0.0.1:5000/update/<int:_id>/
-send updated_twit in this format: {"id": int, "body": "updated_text", "author": "updated_username"}
+http://127.0.0.1:5000/update/<int:_id>/ 
+>> send updated_twit in this format: {"id": int, "body": "updated_text", "author": "updated_username"}
 
 delete twit
 method DELETE:
