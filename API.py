@@ -13,12 +13,12 @@ storage = [{
 def create():
     new_twit = request.get_json()
 
-    _id = len(storage)+1
+    _id = len(storage) + 1
 
     twit = {"id": _id,
             "body": new_twit["body"],
             "author": new_twit["author"]
-    }
+            }
     storage.append(twit)
     return jsonify(twit)
 
@@ -40,10 +40,10 @@ def get_twits():
 def update(_id):
     data = request.get_json()
     for twit in storage:
-       if twit["id"] == _id:
-           twit["body"] = data["body"]
-           twit["author"] = data["author"]
-           return jsonify({"status": "twit updated successfully"})
+        if twit["id"] == _id:
+            twit["body"] = data["body"]
+            twit["author"] = data["author"]
+            return jsonify({"status": "twit updated successfully"})
     return jsonify({"status": f"twit with id {_id} not found"})
 
 
