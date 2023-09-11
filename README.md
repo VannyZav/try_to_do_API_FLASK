@@ -1,40 +1,40 @@
-1. Необходимо разработать REST API, предоставляющее возможность ведения блога.
+# REST API ON FLASK
 
-2. API должен иметь минимум 2 сущности:
+задание:<br/>
+1. Необходимо разработать REST API, предоставляющее возможность ведения блога.<br/>
+2. API должен иметь минимум 2 сущности:<br/>
+   *Пользователь
+   *Пост
+3. Пользователь должен иметь возможность:<br/>
+   *создать
+   *прочитать
+   *изменить
+   *удалить пост
+4. Задание должно быть выполнено с помощью фреймворка Flask<br/>
+5. Задание необходимо предоставить в виде архива с исходными кодом или ссылки на репозиторий в github/gitlab<br/>
 
-Пользователь
-Пост
 
-3. Пользователь должен иметь возможность:
+Помимо кода, должна быть краткая инструкция по запуску задания.<br/>
+В инструкции необходимо указать примеры тела запросов, HTTP метод и соответствующие URL для осуществления операций.<br/>
 
-создать
-прочитать
-изменить
-удалить пост
 
-4. Задание должно быть выполнено с помощью фреймворка Flask.
+# инструкция к API
+В коммандной строке перемещаемся в папки с проектом с помощью команды cd, например: "cd try_to_do_API_FLASK"<br/>
+1. Сreate twit:<br/>
+   *curl http://127.0.0.1:5000/create/ -Metod POST -ContentType 'application/json' -Body '{"body": "text", "author": "username"}'
 
-5. Задание необходимо предоставить в виде архива с исходными кодом или ссылки на репозиторий в github/gitlab
 
-помимо кода, должна быть краткая инструкция по запуску задания
-в инструкции необходимо указать примеры тела запросов, HTTP метод и соответствующие URL для осуществления операций
+2. Read list of twits:<br/>
+   *curl http://127.0.0.1:5000/read/ 
 
-create twit
-metthod POST:
-http://127.0.0.1:5000/create/ >> send twit in this format: {"id": int, "body": "text", "author": "username"}
 
-read list of twits:
-method GET:
-http://127.0.0.1:5000/read/
+3. Read one twit:<br/>
+   *http://127.0.0.1:5000/read/<int:id>/
 
-read one twit
-method GET:
-http://127.0.0.1:5000/read/<int:id>/
 
-update twit
-method PUT:
-http://127.0.0.1:5000/update/<int:_id>/ >> send updated_twit in this format: {"id": int, "body": "updated_text", "author": "updated_username"}
+4. Update twit:<br/>
+   *curl http://127.0.0.1:5000/update/1/ -Method PUT -ContentType 'application/json' -Body '{"body": "text", "author": "username"}'
 
-delete twit
-method DELETE:
-http://127.0.0.1:5000/delete/<_id>/
+
+5. Delete twit:<br/>
+   * curl http://127.0.0.1:5000/delete/1/ -Method DELETE
